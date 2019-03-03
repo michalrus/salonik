@@ -1,0 +1,8 @@
+packages:
+  salonik
+
+optional-packages:
+
+jobs: $ncpus
+
+keep-going: true
