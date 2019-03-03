@@ -30,22 +30,27 @@ executable salonik
                      , OverloadedStrings
                      , PolyKinds
                      , QuasiQuotes
+                     , Rank2Types
                      , RankNTypes
                      , RecordWildCards
                      , ScopedTypeVariables
                      , StandaloneDeriving
+                     , StrictData
                      , TemplateHaskell
                      , TupleSections
                      , TypeApplications
                      , TypeFamilies
                      , TypeOperators
-  other-modules:       Main
+  exposed-modules:     Main
+  other-modules:       Salonik.LEDStrip.Main
+                     , Salonik.LEDStrip.Protocol
                      , Salonik.Log
   build-depends:       base-noprelude
                      , prelude
                      , containers
                      , memory
                      , time
+                     , cereal
                      , ansi-terminal
                      , bytestring
                      , connection

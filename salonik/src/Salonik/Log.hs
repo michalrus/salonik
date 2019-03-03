@@ -25,21 +25,21 @@ data Internal = Internal
   , supportsANSI :: Bool
   }
 
-internal :: IORef Internal
+internal :: Internal
 {-# NOINLINE internal #-}
 internal =
   unsafePerformIO $ do
     logSet <- newStdoutLoggerSet 0 -- bufsize == 0, to always flush
     inSystemd <- isJust <$> lookupEnv "NOTIFY_SOCKET"
     supportsANSI <- ANSI.hSupportsANSI IO.stdout
-    newIORef Internal {..}
+    pure Internal {..}
 
 -- |TODO: Maybe output straight to stdout, but via a TChan for concurrency? Where to start the consumer then?
 -- |TODO: Maybe allow writing straight to 'syslog(3)', to have proper multiline messages?
 -- |TODO: Or maybe straight to journal, to add code locations from 'HasCallStack'?
 log :: Text -> Text -> [ANSI.SGR] -> Text -> IO ()
 log systemdLevel humanLevel sgr msg = do
-  Internal {..} <- readIORef internal
+  let Internal {..} = internal
   prefix <-
     if inSystemd
       then pure systemdLevel

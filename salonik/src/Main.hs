@@ -2,7 +2,7 @@ module Main
   ( main
   ) where
 
-import qualified Salonik.Log as L
+import qualified Salonik.LEDStrip.Main
 
 main :: IO ()
-main = L.debug "hello"
+main = Salonik.LEDStrip.Main.main
