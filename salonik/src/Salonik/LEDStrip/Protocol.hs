@@ -2,7 +2,11 @@ module Salonik.LEDStrip.Protocol where
 
 import qualified Data.Serialize as S
 
-data RGB = RGB Word8 Word8 Word8 deriving (Eq, Show)
+data RGB =
+  RGB Word8
+      Word8
+      Word8
+  deriving (Eq, Show)
 
 instance S.Serialize RGB where
   put (RGB r g b) = do
@@ -24,7 +28,7 @@ data DataMsg = DataMsg
   } deriving (Eq, Show)
 
 instance S.Serialize DataMsg where
-  put DataMsg{..} = do
+  put DataMsg {..} = do
     S.putWord8 0
     S.putWord8 stripNumber
     S.putWord32le frameNumber
@@ -36,7 +40,7 @@ instance S.Serialize DataMsg where
     frameNumber <- S.getWord32le
     len <- S.getWord16le
     leds <- replicateM (fromIntegral len) S.get
-    pure DataMsg{..}
+    pure DataMsg {..}
 
 -- UDP packet SET:
 -- [1 byte] packet type [0: DATA, 1:SET]
@@ -45,7 +49,7 @@ instance S.Serialize DataMsg where
 data SetMsg = SetMsg
   { queueLength :: Word8 -- 1-64
   , frameTime :: Word32 -- [µs]
-  }
+  } deriving (Eq, Show)
 
 instance S.Serialize SetMsg where
   put SetMsg {..} = do
@@ -56,7 +60,7 @@ instance S.Serialize SetMsg where
     1 <- S.getWord8
     queueLength <- S.getWord8
     frameTime <- S.getWord32le
-    pure SetMsg{..}
+    pure SetMsg {..}
 
 -- UDP packet ACK:
 -- [1 byte] strip number
@@ -68,10 +72,10 @@ data AckMsg = AckMsg
   , frameNumber :: Word32
   , framesRemainingInBuffer :: Word8 -- 0 = buffer starvation
   , minimalMicrosLastFrame :: Word32 -- [µs]
-  }
+  } deriving (Eq, Show)
 
 instance S.Serialize AckMsg where
-  put AckMsg{..} = do
+  put AckMsg {..} = do
     S.putWord8 stripNumber
     S.putWord32le frameNumber
     S.putWord8 framesRemainingInBuffer
@@ -81,4 +85,4 @@ instance S.Serialize AckMsg where
     frameNumber <- S.getWord32le
     framesRemainingInBuffer <- S.getWord8
     minimalMicrosLastFrame <- S.getWord32le
-    pure AckMsg{..}
+    pure AckMsg {..}
