@@ -42,7 +42,7 @@ executable salonik
                      , TypeFamilies
                      , TypeOperators
   exposed-modules:     Main
-  other-modules:       Salonik.LEDStrip.Main
+  other-modules:       Salonik.LEDStrip.Client.Main
                      , Salonik.LEDStrip.Protocol
                      , Salonik.Log
   build-depends:       base-noprelude

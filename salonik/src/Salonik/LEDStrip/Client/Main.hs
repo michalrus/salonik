@@ -1,4 +1,4 @@
-module Salonik.LEDStrip.Main where
+module Salonik.LEDStrip.Client.Main where
 
 import           Control.Concurrent        (threadDelay)
 import           Data.List                 (cycle)
@@ -30,6 +30,9 @@ udpHandle host port = do
   Socket.connect socket (SockAddrInet port address)
   socketToHandle socket WriteMode
 
+--
+-- TODO: Use <https://hackage.haskell.org/package/colour-2.3.4/docs/Data-Colour-SRGB.html>.
+--
 prettyPattern :: Handle -> IO ()
 prettyPattern h = do
   let frameTime = 1000 * 1000
@@ -44,3 +47,6 @@ prettyPattern h = do
             0 -> [black, white]
             _ -> [white, black]
     sendMsg h DataMsg {stripNumber = 0, frameNumber, leds}
+--
+-- TODO: Striped flag, e.g. <https://www.schemecolor.com/lgbt-flag-colors.php>.
+--

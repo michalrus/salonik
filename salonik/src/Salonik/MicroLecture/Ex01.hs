@@ -14,7 +14,6 @@ yyy (Just a) = a
 yyy Nothing = 42
 
 -----------------
-
 whosthere :: IO String
 whosthere = readFile "/etc/passwd"
 
@@ -22,7 +21,7 @@ abomination :: IO String -> String
 abomination _ = "hai"
 
 xxx :: String -> [String]
-xxx s = lines s
+xxx = lines
 
 main :: IO ()
 main = do

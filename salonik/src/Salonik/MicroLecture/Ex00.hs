@@ -17,14 +17,8 @@ instance Monad' Maybe' where
   bind' f Nothing' = Nothing'
   bind' f (Just' x) = f x
 -}
-
-
-
 g :: Int -> Int -> Int
 g x y = x * y
-
-
-
 
 -- x :: Integer
 f a =
@@ -35,6 +29,5 @@ f a =
 -- abstract class Maybe<A>
 -- final class Just(A a) extends Maybe<A>
 -- final class Nothing extends Maybe<?>
-
 main :: IO ()
 main = print "Hello"
